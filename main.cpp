@@ -7,8 +7,8 @@ int main()
 {
 
 	Board board(3);
-	board.print();
-
+	//board.print();
+	board.game();
 
 	std::cout << "Jestem tutaj!\n";
 

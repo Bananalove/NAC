@@ -1,4 +1,4 @@
-﻿Build started 2015-06-03 20:24:12.
+﻿Build started 2015-06-03 22:28:37.
      1>Project "c:\Users\Compaq\documents\visual studio 2013\Projects\kolko_krzyzyk\kolko_krzyzyk\kolko_krzyzyk.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          D:\Visual_studio\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
@@ -11,4 +11,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.87
+Time Elapsed 00:00:01.35
