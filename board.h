@@ -8,6 +8,7 @@ namespace signs
 	const std::string cross = "x";
 }
 
+
 class Board
 {
 	Player* player1;
@@ -41,7 +42,7 @@ class Board
 	
 	void game();
 	
-	 
+	std::string check();
 
 	bool result(int count) const; 
 
