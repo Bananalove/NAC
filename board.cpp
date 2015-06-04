@@ -64,9 +64,7 @@ Board& Board::operator= (const Board& board2)
 
 void Board::print() const
 {
-	//system("cls");
-	std::cout << std::endl;
-	std::cout << std::endl;
+	system("cls");
 	for (int i = 0; i < size; ++i)
 	{
 		std::cout << std::fixed;
@@ -139,7 +137,6 @@ bool Board::winner(std::string sign) const
 		{
 			win_3 = false;
 		}
-		std::cout << "i: " << i << " j " << j << '\n';
 		if (board[i][j] != sign)
 		{
 			win_4 = false;
@@ -195,7 +192,7 @@ std::string Board::check()
 			}
 		}
 
-		for (int i = 1, j = size - 2; i < size && j >0; ++i, --j)
+		for (int i = 1, j = size - 2; i < size && j >= 0; ++i, --j)
 		{
 			if (board[i][i] != board[i-1][i-1] )
 			{
@@ -240,7 +237,7 @@ bool Board::result(int count) const // moze zamiast voida cos innego?
 		std::cout << "Wygral gracz \"o\"! GRATULACJE! \n";
 		return true;
 	}
-	if (count*count + 1 == size)
+	if (count + 1 == size*size)
 	{
 		print();
 		std::cout << "Remis! \n";
