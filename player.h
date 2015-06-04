@@ -14,7 +14,7 @@ namespace results
 
 class Board;
 class Player{
-	
+
 protected:
 	std::string sign;
 public:
@@ -24,14 +24,14 @@ public:
 		return sign;
 	}
 	virtual void move(Board& board) = 0;
-	
+
 };
 
 class Human : public Player{
 public:
 	Human(std::string signn) : Player(signn)
 	{ }
-	
+
 	void move(Board& board);
 };
 
@@ -48,8 +48,8 @@ public:
 
 
 	int score(Board& board);
-	
-	
+
+
 };
 
 
