@@ -49,6 +49,7 @@ public:
 
 	int score(Board& board);
 
+	int to_deep(Board& board, std::string player);
 
 };
 

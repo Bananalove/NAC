@@ -34,9 +34,9 @@ Board::Board(const Board& board2)
 			board[i][j] = board2.board[i][j];
 		}
 	}
-}
+}*/
 
-
+/*
 Board& Board::operator= (const Board& board2)
 {
 	if (board != nullptr)

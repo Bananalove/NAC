@@ -46,12 +46,12 @@ int Computer::score(Board& board)
 }
 
 
-int Computer::minimax(std::string player, int poziom, Board& board)
+int Computer::minimax(std::string player, int depth, Board& board)
 {
 	int licznik = 0;
-	int w, k;
+	int wiersz, kolumna;
 	std::string last_val;
-	// sprawdzamy, czy jest wygrana
+	// WIN? LOSE?
 
 	for (int i = 0; i < board.size; i++)
 	{
@@ -61,7 +61,7 @@ int Computer::minimax(std::string player, int poziom, Board& board)
 			{
 				last_val = board.board[i][j];
 				board.board[i][j] = player;
-				w = i; k = j;  // gdyby by³ remis
+				wiersz = i; kolumna = j;  // gdyby by³ remis
 				++licznik;     // zliczamy wolne pola
 
 				bool test = (board.check() == player);
@@ -69,7 +69,7 @@ int Computer::minimax(std::string player, int poziom, Board& board)
 				board.board[i][j] = last_val;
 				if (test)
 				{
-					if (!poziom)
+					if (!depth)
 					{
 						board.board[i][j] = player;
 					}
@@ -79,23 +79,41 @@ int Computer::minimax(std::string player, int poziom, Board& board)
 		}
 	}
 
-	// sprawdzamy, czy jest remis
+	// DRAW?
 
 	if (licznik == 1)
 	{
-		if (!poziom)
+		if (!depth)
 		{
-			board.board[w][k] = player;
+			board.board[wiersz][kolumna] = player;
 		}
 		return 0;
+	}
+	int v = 0;
+	int vmax;
+	vmax = (player == "x" ? (board.size*board.size + 1) : -(board.size*board.size + 1));
+	//std::cerr << "Glebokosc: " << depth << "\n";
+	if (depth > 3)
+	{
+		// potencjalna ocena 
+		return vmax + to_deep(board, player);
+
 	}
 
 	// wybieramy najkorzystniejszy ruch dla gracza
 
-	int v;
-	int vmax;
+	
 
-	vmax = (player == "x" ? 2 : -2);
+	//vmax = (player == "x" ? (board.size*board.size + 1) : -(board.size*board.size + 1));
+	/*if (player == "x")
+	{
+		vmax = 10;
+	}
+	if (player == "o")
+	{
+		vmax = -10;
+	}*/
+	vmax = (player == "x" ? 10 : -10);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -105,21 +123,114 @@ int Computer::minimax(std::string player, int poziom, Board& board)
 			{
 				last_val = board.board[i][j];
 				board.board[i][j] = player;
-				v = minimax(player == "x" ? "o" : "x", poziom + 1, board);
+			//	v = minimax(player == "x" ? "o" : "x", depth + 1, board);
+				if (player == "x")
+				{
+					//v = minimax("x", depth + 1, board) - depth;
+					v = minimax("x", depth + 1, board);
+				}
+				if (player == "o")
+				{
+					//v = minimax( "o", depth + 1, board) + depth;
+					v = minimax("o", depth + 1, board);
+				}
 				board.board[i][j] = last_val;
 
 				if (((player == "x") && (v < vmax)) || ((player == "o") && (v > vmax)))
 				{
-					vmax = v; w = i; k = j;
+					
+					vmax = v;
+					wiersz = i; 
+					kolumna = j;
 				}
 			}
 		}
 	}
 
-	if (!poziom)
+	if (!depth)
 	{
-		board.board[w][k] = player;
+		board.board[wiersz][kolumna] = player;
 	}
 	return vmax;
+}
+
+int Computer::to_deep(Board& board, std::string player)
+{
+	int count_w = 0;
+	int max_count_w = 0;
+	int count_k = 0;
+	int max_count_k = 0;
+	int count_dr = 0;
+	int max_count_dr = 0;
+	int count_dl = 0;
+	int max_count_dl = 0;
+
+	for (int i = 0; i < board.size; i++)
+	{
+		for (int j = 0; j < board.size; j++)
+		{
+			if (board.board[i][j] == player)
+			{
+				count_w++;
+			}
+			if (board.board[j][i] == player)
+			{
+				count_k++;
+			}
+		}
+		if (count_w > max_count_w)
+		{
+			max_count_w = count_w;
+		}
+		count_w = 0;
+		if (count_k > max_count_k)
+		{
+			max_count_k = count_k;
+		}
+		count_k = 0;
+	}
+
+	for (int i = 0, j = board.size - 1; i < board.size && j >= 0; ++i, --j)
+	{
+		if (board.board[i][i] == player)
+		{
+			++count_dr;
+		}
+		if (board.board[i][j] == player)
+		{
+			++count_dl;
+		}
+	}
+	if (count_dl > max_count_dl)
+	{
+		max_count_dl = count_dl;
+	}
+	if (count_dr > max_count_dr)
+	{
+		max_count_dr = count_dr;
+	}
+
+	int max = 0;
+	if (max < max_count_dl)
+	{
+		max = max_count_dl;
+	}
+	if (max < max_count_dr)
+	{
+		max = max_count_dr;
+	}
+	if (max < max_count_k)
+	{
+		max = max_count_k;
+	}
+	if (max < max_count_w)
+	{
+		max = max_count_w;
+	}
+	if (player == "x")
+		max = -max;
+	return max;
+
+
 }
 
