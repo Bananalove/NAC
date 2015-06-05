@@ -7,9 +7,10 @@
 int main()
 {
 	system("pause");
-	Computer gracz1("o");
-	Computer gracz2("x");
-	Board board(5, &gracz1, &gracz2);
+	Computer gracz1("x");
+	//Computer gracz2("x");
+	Human gracz2("o");
+	Board board(3, &gracz1, &gracz2, difficult::hard);
 	board.print();
 	srand(time(NULL));
 	auto  end = std::clock(), start = std::clock();

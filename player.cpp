@@ -73,7 +73,7 @@ int Computer::minimax(std::string player, int depth, Board& board)
 					{
 						board.board[i][j] = player;
 					}
-					return player == "x" ? -1 : 1;
+					return player == "x" ? (board.size*board.size + 1) : -(board.size*board.size + 1);
 				}
 			}
 		}
@@ -93,31 +93,21 @@ int Computer::minimax(std::string player, int depth, Board& board)
 	int vmax;
 	vmax = (player == "x" ? (board.size*board.size + 1) : -(board.size*board.size + 1));
 	//std::cerr << "Glebokosc: " << depth << "\n";
-	if (depth > 3)
+	/*if (depth > board.how_dificult)
 	{
 		// potencjalna ocena 
+		std::cout << "Program ocenia sobie jak mu sie podoba!\n";
 		return vmax + to_deep(board, player);
 
-	}
-
-	// wybieramy najkorzystniejszy ruch dla gracza
-
-	
-
-	//vmax = (player == "x" ? (board.size*board.size + 1) : -(board.size*board.size + 1));
-	/*if (player == "x")
-	{
-		vmax = 10;
-	}
-	if (player == "o")
-	{
-		vmax = -10;
 	}*/
-	vmax = (player == "x" ? 10 : -10);
 
-	for (int i = 0; i < 3; i++)
+	// actual minimax 
+	
+	//vmax = (player == "x" ? 10 : -10);
+
+	for (int i = 0; i < board.size; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < board.size; j++)
 		{
 			if (board.board[i][j] != "x" && board.board[i][j] != "o")
 			{
@@ -138,7 +128,7 @@ int Computer::minimax(std::string player, int depth, Board& board)
 
 				if (((player == "x") && (v < vmax)) || ((player == "o") && (v > vmax)))
 				{
-					
+					std::cout << "Jestem w tej glupiej petli!\n";
 					vmax = v;
 					wiersz = i; 
 					kolumna = j;
@@ -146,6 +136,67 @@ int Computer::minimax(std::string player, int depth, Board& board)
 			}
 		}
 	}
+	/*
+	int minimax(char gracz, int poziom)
+{
+  int licznik = 0;
+  int w,k;
+  
+  // sprawdzamy, czy jest wygrana
+  
+  for(int i = 0; i < 3; i++)
+    for(int j = 0; j < 3; j++)
+      if(xo[i][j] == ' ')
+      {
+        xo[i][j] = gracz;
+        w = i; k = j;  // gdyby by³ remis
+        licznik++;     // zliczamy wolne pola
+
+        bool test = wygrana(gracz);
+        
+        xo[i][j] = ' ';
+        if(test)
+        {
+          if(!poziom) xo[i][j] = gracz;
+          return gracz == 'x' ? -1 : 1;
+        }
+      }
+  
+  // sprawdzamy, czy jest remis
+  
+  if(licznik == 1)
+  {
+    if(!poziom) xo[w][k] = gracz;
+    return 0;           
+  }
+  
+  // wybieramy najkorzystniejszy ruch dla gracza
+  
+  int v;
+  int vmax;
+  
+  vmax = gracz == 'x' ? 2 : -2;
+  
+  for(int i = 0; i < 3; i++)
+    for(int j = 0; j < 3; j++)
+      if(xo[i][j] == ' ')
+      {
+        xo[i][j] = gracz;
+        v = minimax(gracz == 'x' ? 'o' : 'x', poziom + 1);
+        xo[i][j] = ' ';
+
+        if(((gracz == 'x') && (v < vmax)) || ((gracz == 'o') && (v > vmax)))
+        {
+          vmax = v; w = i; k = j; 
+        }
+      }
+      
+   if(!poziom) xo[w][k] = gracz;
+   
+   return vmax;
+}
+
+	*/
 
 	if (!depth)
 	{

@@ -1,6 +1,6 @@
 #include "board.h"
 
-Board::Board(int sizee, Player* player11, Player* player22) : size(sizee), player1(player11), player2(player22)
+Board::Board(int sizee, Player* player11, Player* player22, int dificult) : size(sizee), player1(player11), player2(player22), how_dificult(dificult)
 {
 	board = new std::string*[size];
 	for (int i = 0; i < size; ++i)
