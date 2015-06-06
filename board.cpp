@@ -1,7 +1,13 @@
 #include "board.h"
 
-Board::Board(int sizee, Player* player11, Player* player22, int dificult) : size(sizee), player1(player11), player2(player22), how_dificult(dificult)
+Board::Board(int sizee, std::shared_ptr<Player> player11, std::shared_ptr<Player> player22, int dificult) : size(sizee), how_dificult(dificult)
 {
+	//player1(player11), player2(player22)
+	//player1 = std::make_shared <Human>(*player11);
+	//player2 = std::make_shared <Human>(*player22);
+	player1 = player11;
+	player2 = player22;
+
 	board = new std::string*[size];
 	for (int i = 0; i < size; ++i)
 	{

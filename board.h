@@ -1,6 +1,7 @@
 #ifndef BOARD_H
 #define BOARD_H
 #include <iomanip>
+#include <memory>
 #include "player.h"
 namespace signs 
 {
@@ -11,15 +12,15 @@ namespace difficult
 {
 	const int easy = 1;
 	const int medium = 3;
-	const int hard = 10;
+	const int hard = 4;
 	const int uwinnable = 10;
 }
 
 
 class Board
 {
-	Player* player1;
-	Player* player2;
+	std::shared_ptr<Player>  player1;
+	std::shared_ptr<Player>  player2;
 	int how_dificult;
 	std::string** board;
 	int size; 
@@ -27,7 +28,7 @@ class Board
 
 	Board() : size(0), board(nullptr), player1(nullptr), player2(nullptr) {}
 
-	Board(int sizee, Player* player11, Player* player22, int difficult);
+	Board(int sizee, std::shared_ptr<Player> player11, std::shared_ptr<Player> player22, int difficult);
 
 	
 	//Board(const Board& board2);
