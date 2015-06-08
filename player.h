@@ -17,6 +17,7 @@ class Player{
 
 protected:
 	std::string sign;
+	//std::string sign;
 public:
 	Player(std::string signn) :sign(signn) {}
 	std::string show_sing() const

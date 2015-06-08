@@ -38,6 +38,8 @@ int how_difficult()
 
 void menu()
 {
+
+
 	std::cout << "Podaj rozmiar planszy ( w zalozeniu mniejszy od 20).\n";
 	int size;
 	std::cin >> size;
@@ -80,8 +82,11 @@ void menu()
 		ptr2.reset(new Computer(signs::nought));
 	}
 	Board board(size, ptr1, ptr2, how_difficult());
-
+	srand(time(NULL));
+	auto  end = std::clock(), start = std::clock();
 	board.game();
+	end = std::clock();
+	std::cout << "Czas trwania gry to : " << (((float)(end - start)) / CLOCKS_PER_SEC) * 1000 << " milisekund.\n";
 	
 
 }

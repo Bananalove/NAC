@@ -53,6 +53,8 @@ int Computer::minimax(std::string player, int depth, Board& board)
 	std::string last_val;
 	// WIN? LOSE?
 
+	
+
 	for (int i = 0; i < board.size; i++)
 	{
 		for (int j = 0; j < board.size; j++)
@@ -61,8 +63,9 @@ int Computer::minimax(std::string player, int depth, Board& board)
 			{
 				last_val = board.board[i][j];
 				board.board[i][j] = player;
-				wiersz = i; kolumna = j;  // gdyby by³ remis
-				++licznik;     // zliczamy wolne pola
+				wiersz = i; 
+				kolumna = j;  
+				++licznik;     //  wolne pola
 
 				bool test = (board.check() == player);
 
@@ -73,13 +76,13 @@ int Computer::minimax(std::string player, int depth, Board& board)
 					{
 						board.board[i][j] = player;
 					}
-						//return player == "x" ? -1 : 1;
 
 					return player == "x" ? -(board.size*board.size + 1) : (board.size*board.size + 1);
 				}
 			}
 		}
 	}
+//	std::cout << "jestem w minmaxie!\n";
 
 	// DRAW?
 
@@ -91,21 +94,17 @@ int Computer::minimax(std::string player, int depth, Board& board)
 		}
 		return 0;
 	}
-	int value= 0;
+	int value = 0;
 	int max;
 	 max = (player == "x" ? 2 * (board.size*board.size + 1) : -2 * (board.size*board.size + 1));
-	//std::cerr << "Glebokosc: " << depth << "\n";
-	if (depth > board.how_dificult)
+
+	 if (depth > board.how_dificult)
 	{
 	// potencjalna ocena
-	//std::cout << "Program ocenia sobie jak mu sie podoba!\n";
-	return max + to_deep(board, player);
-
+	return max/2 + to_deep(board, player);
 	}
 
-	// actual minimax 
-
-
+	
 	for (int i = 0; i < board.size; i++)
 	{
 		for (int j = 0; j < board.size; j++)

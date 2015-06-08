@@ -12,15 +12,17 @@ Board::Board(int sizee, std::shared_ptr<Player> player11, std::shared_ptr<Player
 	for (int i = 0; i < size; ++i)
 	{
 		board[i] = new std::string[size];
+		
 	}
 	for (int i = 0; i < size; ++i)
 	{
 		for (int j = 0; j < size; ++j)
 		{
+
 			board[i][j] = std::to_string(size*i + j + 1);
 		}
 	}
-}
+} 
 /*
 Board::Board(const Board& board2)
 {
@@ -90,6 +92,7 @@ void Board::game()
 		if (i % 2 == 0)
 		{
 			print();
+
 			player1->move(*this);
 			if (result(i))
 			{

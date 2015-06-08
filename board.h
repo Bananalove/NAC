@@ -13,7 +13,7 @@ namespace difficult
 	const int easy = 1;
 	const int medium = 3;
 	const int hard = 4;
-	const int uwinnable = 10;
+	const int uwinnable = 5;
 }
 
 
